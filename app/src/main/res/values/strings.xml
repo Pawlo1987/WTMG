@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">WTMG</string>
+    <string name="tvHeadMAc">WorkTimeManager</string>
+    <string name="btnStartOrChangeWorkMAc">Start Or Change Work</string>
+    <string name="btnStopWorkTimeMAc">Stop Work Time</string>
+    <string name="btnCurrentStatusMAc">Current status</string>
+    <string name="btnReportsMAc">Reports</string>
+    <string name="btnKindsOfWorkMAc">Kinds of work</string>
+    <string name="tvHeadKOWAc">Kinds of Work</string>
+    <string name="tvHeadSWTOCKOWAc">Start or change work</string>
+    <string name="tvHeadSWTAc">Stop Work Time</string>
+    <string name="btnStopSWTAc">Stop</string>
+    <string name="btnAddNewKindOfWorkMAc">Add New Work</string>
+</resources>

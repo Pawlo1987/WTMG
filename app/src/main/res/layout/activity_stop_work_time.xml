@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:orientation="vertical"
+    tools:context=".StopWorkTimeActivity">
+
+    <TextView
+        android:id="@+id/tvHeadSWTAc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/tvHeadSWTAc"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvWorkTimerSWTAc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvTotalWorkTimeOfDaySWTAc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btnStopSWTAc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:onClick="onClick"
+        android:text="@string/btnStopSWTAc"/>
+
+</LinearLayout>
