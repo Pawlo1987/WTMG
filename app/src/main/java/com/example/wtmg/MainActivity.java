@@ -16,63 +16,52 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view){
         switch(view.getId()){
-            case R.id.btnStartOrChangeMAc:
-                startWorkTimeOrChangeKindOfWork();
+            case R.id.btnChangeStateOfWorkMAc:
+                changeStateOfWork();
                 break;
 
-            case R.id.btnStopWorkTimeMAc:
-                stopWorkTime();
+            case R.id.btnAddNewWorkMAc:
+                addNewWork();
                 break;
 
-            case R.id.btnKindsOfWorkMAc:
-                kindsOfWork();
+            case R.id.btnStatusOfActiveWorksMAc:
+                statusOfActiveWorks();
                 break;
 
-            case R.id.btnCurrentStatusMAc:
-                timeCurrentStatus();
-                break;
-
-            case R.id.btnReportsMAc:
-                reports();
+            case R.id.btnReportBuilderMAc:
+                reportBuilder();
                 break;
 
         }//switch
 
     }//OnClick
 
-    //Activity with features: start work, change current work to another, short details of works.
-    private void startWorkTimeOrChangeKindOfWork(){
-        Intent intent = new Intent(this, StartWorkTimeOrChangeKindOfWorkActivity.class);
+    //Activity with features: start work, stop work, change current work to another, short details of works.
+    private void changeStateOfWork(){
+        Intent intent = new Intent(this, ChangeStateOfWorkActivity.class);
         startActivity(intent);
 
-    }//startWorkTime
+    }//changeStateOfWork
 
-    //Activity with feature: stop works
-    private void stopWorkTime(){
-        Intent intent = new Intent(this, StopWorkTimeActivity.class);
+    //Activity with features: Creating a new work or detail view of existed works or delete existed works.
+    private void addNewWork() {
+        Intent intent = new Intent(this, AddNewWork.class);
         startActivity(intent);
 
-    }//stopWorkTime
-
-    //Activity with features: Creating a new kind of work or detail view of existed works or delete existed works.
-    private void kindsOfWork() {
-        Intent intent = new Intent(this, KindsOfWorkActivity.class);
-        startActivity(intent);
-
-    }//timeCurrentStatus
+    }//addNewWork
 
     //Activity with features: Detail view of works.
-    private void timeCurrentStatus() {
-        Intent intent = new Intent(this, TimeCurrentStatusActivity.class);
+    private void statusOfActiveWorks() {
+        Intent intent = new Intent(this, StatusOfActiveWorksActivity.class);
         startActivity(intent);
 
-    }//timeCurrentStatus
+    }//statusOfActiveWork
 
     //Activity with features: create reports and send or print it.
-    private void reports(){
-        Intent intent = new Intent(this, ReportsActivity.class);
+    private void reportBuilder(){
+        Intent intent = new Intent(this, ReportBuilderActivity.class);
         startActivity(intent);
 
-    }//reports
+    }//reportBuilder
 
 }//class MainActivity

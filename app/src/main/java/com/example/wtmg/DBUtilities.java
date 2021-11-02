@@ -17,7 +17,7 @@ public class DBUtilities {
     private SQLiteDatabase db;
 
     public String AllPrjQuery = "SELECT prj.id, prj.prj_name, prj.prj_time_limit, " +
-            "prj.prj_waste_time, prj.company, prj.support_man " +
+            "prj.prj_waste_time, prj.company, prj.contact_person " +
             "FROM prj ORDER BY prj.prj_name";
 
 

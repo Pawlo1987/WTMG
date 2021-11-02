@@ -11,11 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -26,7 +24,7 @@ import java.util.List;
 
 //TODO: HERE Must be line with current system time, next line with spinner with relevant works
 // and button start or change(function for change text in side of button)
-public class StartWorkTimeOrChangeKindOfWorkActivity extends AppCompatActivity {
+public class ChangeStateOfWorkActivity extends AppCompatActivity {
     ActionBar actionBar; //arrowGoBack
 
     Context context;
@@ -48,16 +46,16 @@ public class StartWorkTimeOrChangeKindOfWorkActivity extends AppCompatActivity {
 
     RecyclerView rvExistWorkSWTOCKOWAc; //link to recyclerView
 
-    PrjListSWTOCKOWAcRecyclerAdapter prjListSWTOCKOWAcRecyclerAdapter; // adaptor for Recyclerview
+    PrjListCSOWAcRecyclerAdapter prjListCSOWAcRecyclerAdapter; // adaptor for Recyclerview
 
     TextView tvWorksCountSWTOCKOWAc; //count of works for this current account
 
-    String mainQuery = "SELECT prj.id, prj.prj_name, prj.prj_time_limit, prj.prj_waste_time, prj.company, prj.support_man FROM prj ORDER BY prj.prj_name";
+    String mainQuery = "SELECT prj.id, prj.prj_name, prj.prj_time_limit, prj.prj_waste_time, prj.company, prj.contact_person FROM prj ORDER BY prj.prj_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_work_time_or_change_kind_of_work);
+        setContentView(R.layout.activity_change_state_of_work);
 
         context = getBaseContext();
 
@@ -68,10 +66,10 @@ public class StartWorkTimeOrChangeKindOfWorkActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        rvExistWorkSWTOCKOWAc = (RecyclerView) findViewById(R.id.rvExistWorkSWTOCKOWAc);
-        tvWorksCountSWTOCKOWAc = (TextView) findViewById(R.id.tvWorksCountSWTOCKOWAc);
-        spKindOfWorkSWTOCKOWAc = (Spinner) findViewById(R.id.spKindOfWorkSWTOCKOWAc);
-        tvCurTimeAndDateSWTOCKOWAc = (TextView) findViewById(R.id.tvCurTimeAndDateSWTOCKOWAc);
+        rvExistWorkSWTOCKOWAc = (RecyclerView) findViewById(R.id.rvExistWorkCSOWAc);
+        tvWorksCountSWTOCKOWAc = (TextView) findViewById(R.id.tvWorksCountCSOWAc);
+        spKindOfWorkSWTOCKOWAc = (Spinner) findViewById(R.id.spKindOfWorkCSOWAc);
+        tvCurTimeAndDateSWTOCKOWAc = (TextView) findViewById(R.id.tvCurTimeAndDateCSOWAc);
 
         setInitialDate();               //начальная установка даты
         setInitialTime();               //начальная установка время
@@ -91,10 +89,10 @@ public class StartWorkTimeOrChangeKindOfWorkActivity extends AppCompatActivity {
         tvWorksCountSWTOCKOWAc.setText(String.valueOf(cursor.getCount()));
 
         // create adaptor and handing over a link
-        prjListSWTOCKOWAcRecyclerAdapter
-                = new PrjListSWTOCKOWAcRecyclerAdapter(context, idAuthUser);
+        prjListCSOWAcRecyclerAdapter
+                = new PrjListCSOWAcRecyclerAdapter(context, idAuthUser);
 
-        rvExistWorkSWTOCKOWAc.setAdapter(prjListSWTOCKOWAcRecyclerAdapter);
+        rvExistWorkSWTOCKOWAc.setAdapter(prjListCSOWAcRecyclerAdapter);
     }//buildUserRecyclerView
 
     //arrow for back to previous menu
@@ -200,4 +198,4 @@ public class StartWorkTimeOrChangeKindOfWorkActivity extends AppCompatActivity {
                 .show();  // show dialogue
     } // setDate
 
-}//StartWorkTimeOrChangeKindOfWorkActivity
+}//ChangeStateOfWorkActivity

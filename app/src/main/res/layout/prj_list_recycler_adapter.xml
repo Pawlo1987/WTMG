@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:id="@+id/llMainSWTOCKOWAcRA"
+    android:id="@+id/llMainCSOWAcRA"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cvPrjListSWTOCKOWAcRA"
+        android:id="@+id/cvPrjListCSOWAcRA"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -34,7 +34,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvPrjNameSWTOCKOWAcRA"
+                        android:id="@+id/tvPrjNameCSOWAcRA"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -44,7 +44,7 @@
                         android:textSize="18sp" />
 
                     <Button
-                        android:id="@+id/btnEditPrjSWTOCKOWAcRA"
+                        android:id="@+id/btnEditPrjCSOWAcRA"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -60,7 +60,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvCompNameSWTOCKOWAcRA"
+                        android:id="@+id/tvCompNameCSOWAcRA"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="TextView1"
@@ -99,7 +99,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvPrjTimeLimitSWTOCKOWAcRA"
+                        android:id="@+id/tvPrjTimeLimitCSOWAcRA"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="TimeLimit"
@@ -109,7 +109,7 @@
                         android:layout_weight="1"/>
 
                     <TextView
-                        android:id="@+id/tvPrjWasteTimeSWTOCKOWAcRA"
+                        android:id="@+id/tvPrjWasteTimeCSOWAcRA"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="(WasteTime)"
@@ -124,7 +124,7 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnStartPrjSWTOCKOWAcRA"
+                        android:id="@+id/btnStartPrjCSOWAcRA"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -134,7 +134,7 @@
                         android:textSize="15sp"/>
 
                     <Button
-                        android:id="@+id/btnStopPrjSWTOCKOWAcRA"
+                        android:id="@+id/btnStopPrjCSOWAcRA"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

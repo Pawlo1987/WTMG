@@ -6,54 +6,20 @@
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ChangeStateOfWorkActivity">
 
     <TextView
-        android:id="@+id/tvHeadMAc"
+        android:id="@+id/tvHeadCSOWAc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/tvHeadMAc"
+        android:text="@string/tvHeadCSOWAc"
         android:textAlignment="center"
         android:textColor="@android:color/background_dark"
         android:textSize="30sp"
         android:textStyle="bold"/>
-
-    <Button
-        android:id="@+id/btnChangeStateOfWorkMAc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:onClick="onClick"
-        android:text="@string/btnChangeStateOfWorkMAc"/>
-
-
-
-    <Button
-        android:id="@+id/btnAddNewWorkMAc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:onClick="onClick"
-        android:text="@string/btnAddNewWorkMAc"/>
-
-    <Button
-        android:id="@+id/btnStatusOfActiveWorksMAc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:onClick="onClick"
-        android:text="@string/btnStatusOfActiveWorksMAc"/>
-
-    <Button
-        android:id="@+id/btnReportBuilderMAc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:onClick="onClick"
-        android:text="@string/btnReportBuilderMAc"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,7 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Quantity of Active Works:"
+            android:text="Total works"
             android:layout_margin="10dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
@@ -72,7 +38,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/tvQuantityOfActiveWorksMAc"
+            android:id="@+id/tvWorksCountCSOWAc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -82,5 +48,32 @@
             android:textColor="@android:color/background_dark"
             android:textStyle="bold"/>
     </LinearLayout>
+
+
+    <!--current date and time-->
+    <TextView
+        android:id="@+id/tvCurTimeAndDateCSOWAc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textStyle="bold"/>
+
+    <Spinner
+        android:id="@+id/spKindOfWorkCSOWAc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvExistWorkCSOWAc"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="LinearLayoutManager">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

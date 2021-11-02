@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 //TODO:Here must be option for creating (pdf and excel format) or review status (list) of all works getting from database
-public class ReportsActivity extends AppCompatActivity {
+public class ReportBuilderActivity extends AppCompatActivity {
     ActionBar actionBar; //arrowGoBack
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reports);
+        setContentView(R.layout.activity_report_builder);
         //add ActionBar arrow on Top-Left side on screen
         actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);

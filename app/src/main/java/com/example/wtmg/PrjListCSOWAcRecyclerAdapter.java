@@ -3,7 +3,6 @@ package com.example.wtmg;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -12,14 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class PrjListSWTOCKOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListSWTOCKOWAcRecyclerAdapter.ViewHolder>{
+public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCSOWAcRecyclerAdapter.ViewHolder>{
 
     Context context;
 
@@ -34,7 +29,7 @@ public class PrjListSWTOCKOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjLi
     String idAuthUser;         //userId
 
     //constructor
-    public PrjListSWTOCKOWAcRecyclerAdapter(Context context, String idAuthUser) {
+    public PrjListCSOWAcRecyclerAdapter(Context context, String idAuthUser) {
         this.inflater = LayoutInflater.from(context);
         //handler tap on RecyclerAdapter
         this.context = context;
@@ -43,14 +38,14 @@ public class PrjListSWTOCKOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjLi
         dbUtilities.open();
 
         String mainQuery = "SELECT prj.id, prj.prj_name, prj.prj_time_limit, prj.prj_waste_time, " +
-                "prj.company, prj.support_man FROM prj ORDER BY prj.prj_name ";
+                "prj.company, prj.contact_person FROM prj ORDER BY prj.prj_name ";
         cursor = dbUtilities.getDb().rawQuery(mainQuery, null);
 
     } // PrjListRecyclerAdapter
 
     //create a new markup (View) by specifying the markup
     @Override
-    public PrjListSWTOCKOWAcRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PrjListCSOWAcRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.prj_list_recycler_adapter, parent, false);
         return new ViewHolder(view);
@@ -58,16 +53,16 @@ public class PrjListSWTOCKOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjLi
 
     //bind markup elements to object variables (in this case, to the cursor)
     @Override
-    public void onBindViewHolder(PrjListSWTOCKOWAcRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(PrjListCSOWAcRecyclerAdapter.ViewHolder holder, int position) {
         //move cursor on current position
         cursor.moveToPosition(position);
 
         //get data
         idPrj = cursor.getString(0); //caught current prjId
-        holder.tvPrjNameSWTOCKOWAcRA.setText(cursor.getString(1));    //Project Name
-        holder.tvCompNameSWTOCKOWAcRA.setText(cursor.getString(4));   //Company name
-        holder.tvPrjTimeLimitSWTOCKOWAcRA.setText(cursor.getString(2));  //timeLimit
-        holder.tvPrjWasteTimeSWTOCKOWAcRA.setText(cursor.getString(3));    //wasteTime
+        holder.tvPrjNameCSOWAcRA.setText(cursor.getString(1));    //Project Name
+        holder.tvCompNameCSOWAcRA.setText(cursor.getString(4));   //Company name
+        holder.tvPrjTimeLimitCSOWAcRA.setText(cursor.getString(2));  //timeLimit
+        holder.tvPrjWasteTimeCSOWAcRA.setText(cursor.getString(3));    //wasteTime
     } // onBindViewHolder
 
     //get the number of elements of an object (cursor)
@@ -77,26 +72,26 @@ public class PrjListSWTOCKOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjLi
     // Create a ViewHolder class with which we get a link to each element
     // a separate list item and connect the listener for the menu click event
     public class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView tvPrjNameSWTOCKOWAcRA, tvCompNameSWTOCKOWAcRA, tvPrjTimeLimitSWTOCKOWAcRA, tvPrjWasteTimeSWTOCKOWAcRA;
-        final CardView cvPrjListSWTOCKOWAcRA;
-        final LinearLayout llMainSWTOCKOWAcRA;
-        final Button btnEditPrjSWTOCKOWAcRA, btnStartPrjSWTOCKOWAcRA, btnStopPrjSWTOCKOWAcRA;
+        final TextView tvPrjNameCSOWAcRA, tvCompNameCSOWAcRA, tvPrjTimeLimitCSOWAcRA, tvPrjWasteTimeCSOWAcRA;
+        final CardView cvPrjListCSOWAcRA;
+        final LinearLayout llMainCSOWAcRA;
+        final Button btnEditPrjCSOWAcRA, btnStartPrjCSOWAcRA, btnStopPrjCSOWAcRA;
 
         ViewHolder(View view) {
             super(view);
 
-            llMainSWTOCKOWAcRA = (LinearLayout) view.findViewById(R.id.llMainSWTOCKOWAcRA);
-            tvPrjNameSWTOCKOWAcRA = (TextView) view.findViewById(R.id.tvPrjNameSWTOCKOWAcRA);
-            tvCompNameSWTOCKOWAcRA = (TextView) view.findViewById(R.id.tvCompNameSWTOCKOWAcRA);
-            tvPrjTimeLimitSWTOCKOWAcRA = (TextView) view.findViewById(R.id.tvPrjTimeLimitSWTOCKOWAcRA);
-            tvPrjWasteTimeSWTOCKOWAcRA = (TextView) view.findViewById(R.id.tvPrjWasteTimeSWTOCKOWAcRA);
-            cvPrjListSWTOCKOWAcRA = (CardView) view.findViewById(R.id.cvPrjListSWTOCKOWAcRA);
-            btnEditPrjSWTOCKOWAcRA = (Button) view.findViewById(R.id.btnEditPrjSWTOCKOWAcRA);
-            btnStartPrjSWTOCKOWAcRA = (Button) view.findViewById(R.id.btnStartPrjSWTOCKOWAcRA);
-            btnStopPrjSWTOCKOWAcRA = (Button) view.findViewById(R.id.btnStopPrjSWTOCKOWAcRA);
+            llMainCSOWAcRA = (LinearLayout) view.findViewById(R.id.llMainCSOWAcRA);
+            tvPrjNameCSOWAcRA = (TextView) view.findViewById(R.id.tvPrjNameCSOWAcRA);
+            tvCompNameCSOWAcRA = (TextView) view.findViewById(R.id.tvCompNameCSOWAcRA);
+            tvPrjTimeLimitCSOWAcRA = (TextView) view.findViewById(R.id.tvPrjTimeLimitCSOWAcRA);
+            tvPrjWasteTimeCSOWAcRA = (TextView) view.findViewById(R.id.tvPrjWasteTimeCSOWAcRA);
+            cvPrjListCSOWAcRA = (CardView) view.findViewById(R.id.cvPrjListCSOWAcRA);
+            btnEditPrjCSOWAcRA = (Button) view.findViewById(R.id.btnEditPrjCSOWAcRA);
+            btnStartPrjCSOWAcRA = (Button) view.findViewById(R.id.btnStartPrjCSOWAcRA);
+            btnStopPrjCSOWAcRA = (Button) view.findViewById(R.id.btnStopPrjCSOWAcRA);
 
             //handler of Edit BUTTON
-            btnEditPrjSWTOCKOWAcRA.setOnClickListener(new View.OnClickListener() {
+            btnEditPrjCSOWAcRA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //caught position of a cursor
@@ -107,7 +102,7 @@ public class PrjListSWTOCKOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjLi
             });//btnEditVDRA.setOnClickListener
 
             //handler of Start BUTTON
-            btnStartPrjSWTOCKOWAcRA.setOnClickListener(new View.OnClickListener() {
+            btnStartPrjCSOWAcRA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //caught position of a cursor
@@ -115,10 +110,10 @@ public class PrjListSWTOCKOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjLi
                     //approval dialog
                     alertDialogTwoButton(view.getContext(), "START", idPrj);
                 }//onClick
-            });//btnStartPrjSWTOCKOWAcRA.setOnClickListener
+            });//btnStartPrjCSOWAcRA.setOnClickListener
 
             //handler of Stop BUTTON
-            btnStopPrjSWTOCKOWAcRA.setOnClickListener(new View.OnClickListener() {
+            btnStopPrjCSOWAcRA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //caught position of a cursor
@@ -126,7 +121,7 @@ public class PrjListSWTOCKOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjLi
                     //approval dialog
                     alertDialogTwoButton(view.getContext(), "STOP", idPrj);
                 }//onClick
-            });//btnStopPrjSWTOCKOWAcRA.setOnClickListener
+            });//btnStopPrjCSOWAcRA.setOnClickListener
         } //ViewHolder(View view)
 
         //AlertDialog with a couple of button
@@ -172,4 +167,4 @@ public class PrjListSWTOCKOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjLi
 
     }//public class ViewHolder extends RecyclerView.ViewHolder
 
-}//public class PrjListSWTOCKOWAcRecyclerAdapter
+}//public class PrjListCSOWAcRARecyclerAdapter

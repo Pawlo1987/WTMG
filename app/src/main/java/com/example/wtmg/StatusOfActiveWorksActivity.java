@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 //TODO:Here will be list with status of work of current day
-public class TimeCurrentStatusActivity extends AppCompatActivity {
+public class StatusOfActiveWorksActivity extends AppCompatActivity {
     ActionBar actionBar; //arrowGoBack
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time_current_status);
+        setContentView(R.layout.activity_status_of_active_works);
         //add ActionBar arrow on Top-Left side on screen
         actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);

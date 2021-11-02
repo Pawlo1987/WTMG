@@ -8,19 +8,19 @@ import android.view.MenuItem;
 
 //TODO: Here must be work button for add new kind of work or delete kind of work
 // additional option or new work (spinner > option Engineering, layout, else) + count of ordering hours.
-public class KindsOfWorkActivity extends AppCompatActivity {
+public class AddNewWork extends AppCompatActivity {
 
     Context context;
     DBUtilities dbUtilities;  //create local link for class DBUtilities
     ActionBar actionBar; //arrowGoBack
     public String mainQuery = "SELECT prj.id, prj.prj_name, prj.prj_time_limit, " +
-            "prj.prj_waste_time, prj.company, prj.support_man " +
+            "prj.prj_waste_time, prj.company, prj.contact_person " +
             "FROM prj ORDER BY prj.prj_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kinds_of_work);
+        setContentView(R.layout.activity_add_new_work);
 
         //add ActionBar arrow on Top-Left side on screen
         actionBar = getSupportActionBar();
@@ -45,4 +45,4 @@ public class KindsOfWorkActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }//onOptionsItemSelected
 
-}//KindsOfWorkActivity
+}//AddNewWork

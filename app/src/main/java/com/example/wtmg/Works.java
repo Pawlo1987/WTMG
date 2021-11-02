@@ -11,21 +11,21 @@ public class Works implements Parcelable {
     String timeLimit;
     String wasteTime;
     String company;
-    String supportMan;
+    String contactPerson;
 
     //default constructor for creating object class
     public Works(){}
 
     //constructor for creating object class
     public Works( String idPRJ, String name, String timeLimit,
-             String wasteTime, String company, String supportMan){
+             String wasteTime, String company, String contactPerson){
         //reassignment input data to object data
         this.idPRJ =  idPRJ;
         this.name =  name;
         this.timeLimit =  timeLimit;
         this.wasteTime = wasteTime;
         this.company =  company;
-        this.supportMan =  supportMan;
+        this.contactPerson =  contactPerson;
     }//public Works
 
     protected Works(Parcel in) {
@@ -34,7 +34,7 @@ public class Works implements Parcelable {
         timeLimit = in.readString();
         wasteTime = in.readString();
         company = in.readString();
-        supportMan = in.readString();
+        contactPerson = in.readString();
     }//protected Works(Parcel in)
 
     public static final Creator<Works> CREATOR = new Creator<Works>() {
@@ -65,8 +65,8 @@ public class Works implements Parcelable {
     public String getCompany() { return company; }
     public void setCompany(String company) { this.company = company; }
 
-    public String getSupportMan() { return supportMan; }
-    public void setSupportMan(String supportMan) { this.supportMan = supportMan; }
+    public String getContactPerson() { return contactPerson; }
+    public void setContactPerson(String contactPerson) { this.contactPerson = contactPerson; }
 
     @Override
     public int describeContents() {
@@ -80,7 +80,7 @@ public class Works implements Parcelable {
         dest.writeString(timeLimit);
         dest.writeString(wasteTime);
         dest.writeString(company);
-        dest.writeString(supportMan);
+        dest.writeString(contactPerson);
     }//writeToParcel
 
 }//class Works
