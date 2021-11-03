@@ -12,9 +12,11 @@
         <entry key="..\:/AndroidPRJ/WTMG/app/src/main/res/layout/activity_reports.xml" value="0.19882246376811594" />
         <entry key="..\:/AndroidPRJ/WTMG/app/src/main/res/layout/activity_start_work_time.xml" value="0.19882246376811594" />
         <entry key="..\:/AndroidPRJ/WTMG/app/src/main/res/layout/activity_start_work_time_or_change_kind_of_work.xml" value="0.27291666666666664" />
+        <entry key="..\:/AndroidPRJ/WTMG/app/src/main/res/layout/activity_status_of_active_works.xml" value="0.12135416666666667" />
         <entry key="..\:/AndroidPRJ/WTMG/app/src/main/res/layout/activity_stop_work_time.xml" value="0.19882246376811594" />
         <entry key="..\:/AndroidPRJ/WTMG/app/src/main/res/layout/activity_time_current_status.xml" value="0.19882246376811594" />
         <entry key="..\:/AndroidPRJ/WTMG/app/src/main/res/layout/prj_list_recycler_adapter.xml" value="0.3641304347826087" />
+        <entry key="..\:/AndroidPRJ/WTMG/app/src/main/res/layout/prj_list_soaw_recycler_adapter.xml" value="0.35507246376811596" />
       </map>
     </option>
   </component>

@@ -1,6 +1,5 @@
 package com.example.wtmg;
 
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -14,7 +13,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCSOWAcRecyclerAdapter.ViewHolder>{
+public class PrjListSOAWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListSOAWAcRecyclerAdapter.ViewHolder>{
+
 
     Context context;
 
@@ -29,7 +29,7 @@ public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCS
     String idAuthUser;         //userId
 
     //constructor
-    public PrjListCSOWAcRecyclerAdapter(Context context, String idAuthUser) {
+    public PrjListSOAWAcRecyclerAdapter(Context context, String idAuthUser) {
         this.inflater = LayoutInflater.from(context);
         //handler tap on RecyclerAdapter
         this.context = context;
@@ -45,24 +45,24 @@ public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCS
 
     //create a new markup (View) by specifying the markup
     @Override
-    public PrjListCSOWAcRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PrjListSOAWAcRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.prj_list_csow_recycler_adapter, parent, false);
-        return new ViewHolder(view);
+        View view = inflater.inflate(R.layout.prj_list_soaw_recycler_adapter, parent, false);
+        return new PrjListSOAWAcRecyclerAdapter.ViewHolder(view);
     }
 
     //bind markup elements to object variables (in this case, to the cursor)
     @Override
-    public void onBindViewHolder(PrjListCSOWAcRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(PrjListSOAWAcRecyclerAdapter.ViewHolder holder, int position) {
         //move cursor on current position
         cursor.moveToPosition(position);
 
         //get data
         idPrj = cursor.getString(0); //caught current prjId
-        holder.tvPrjNameCSOWAcRA.setText(cursor.getString(1));    //Project Name
-        holder.tvCompNameCSOWAcRA.setText(cursor.getString(4));   //Company name
-        holder.tvPrjTimeLimitCSOWAcRA.setText(cursor.getString(2));  //timeLimit
-        holder.tvPrjWasteTimeCSOWAcRA.setText(cursor.getString(3));    //wasteTime
+        holder.tvPrjNameSOAWAcRA.setText(cursor.getString(1));    //Project Name
+        holder.tvCompNameSOAWAcRA.setText(cursor.getString(4));   //Company name
+        holder.tvPrjTimeLimitSOAWAcRA.setText(cursor.getString(2));  //timeLimit
+        holder.tvPrjWasteTimeSOAWAcRA.setText(cursor.getString(3));    //wasteTime
     } // onBindViewHolder
 
     //get the number of elements of an object (cursor)
@@ -72,26 +72,26 @@ public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCS
     // Create a ViewHolder class with which we get a link to each element
     // a separate list item and connect the listener for the menu click event
     public class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView tvPrjNameCSOWAcRA, tvCompNameCSOWAcRA, tvPrjTimeLimitCSOWAcRA, tvPrjWasteTimeCSOWAcRA;
-        final CardView cvPrjListCSOWAcRA;
-        final LinearLayout llMainCSOWAcRA;
-        final Button btnEditPrjCSOWAcRA, btnStartPrjCSOWAcRA, btnStopPrjCSOWAcRA;
+        final TextView tvPrjNameSOAWAcRA, tvCompNameSOAWAcRA, tvPrjTimeLimitSOAWAcRA, tvPrjWasteTimeSOAWAcRA;
+        final CardView cvPrjListSOAWAcRA;
+        final LinearLayout llMainSOAWAcRA;
+        final Button btnEditPrjSOAWAcRA, btnStartPrjSOAWAcRA, btnStopPrjSOAWAcRA;
 
         ViewHolder(View view) {
             super(view);
 
-            llMainCSOWAcRA = (LinearLayout) view.findViewById(R.id.llMainCSOWAcRA);
-            tvPrjNameCSOWAcRA = (TextView) view.findViewById(R.id.tvPrjNameCSOWAcRA);
-            tvCompNameCSOWAcRA = (TextView) view.findViewById(R.id.tvCompNameCSOWAcRA);
-            tvPrjTimeLimitCSOWAcRA = (TextView) view.findViewById(R.id.tvPrjTimeLimitCSOWAcRA);
-            tvPrjWasteTimeCSOWAcRA = (TextView) view.findViewById(R.id.tvPrjWasteTimeCSOWAcRA);
-            cvPrjListCSOWAcRA = (CardView) view.findViewById(R.id.cvPrjListCSOWAcRA);
-            btnEditPrjCSOWAcRA = (Button) view.findViewById(R.id.btnEditPrjCSOWAcRA);
-            btnStartPrjCSOWAcRA = (Button) view.findViewById(R.id.btnStartPrjCSOWAcRA);
-            btnStopPrjCSOWAcRA = (Button) view.findViewById(R.id.btnStopPrjCSOWAcRA);
+            llMainSOAWAcRA = (LinearLayout) view.findViewById(R.id.llMainSOAWAcRA);
+            tvPrjNameSOAWAcRA = (TextView) view.findViewById(R.id.tvPrjNameSOAWAcRA);
+            tvCompNameSOAWAcRA = (TextView) view.findViewById(R.id.tvCompNameSOAWAcRA);
+            tvPrjTimeLimitSOAWAcRA = (TextView) view.findViewById(R.id.tvPrjTimeLimitSOAWAcRA);
+            tvPrjWasteTimeSOAWAcRA = (TextView) view.findViewById(R.id.tvPrjWasteTimeSOAWAcRA);
+            cvPrjListSOAWAcRA = (CardView) view.findViewById(R.id.cvPrjListSOAWAcRA);
+            btnEditPrjSOAWAcRA = (Button) view.findViewById(R.id.btnEditPrjSOAWAcRA);
+            btnStartPrjSOAWAcRA = (Button) view.findViewById(R.id.btnStartPrjSOAWAcRA);
+            btnStopPrjSOAWAcRA = (Button) view.findViewById(R.id.btnStopPrjSOAWAcRA);
 
             //handler of Edit BUTTON
-            btnEditPrjCSOWAcRA.setOnClickListener(new View.OnClickListener() {
+            btnEditPrjSOAWAcRA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //caught position of a cursor
@@ -102,7 +102,7 @@ public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCS
             });//btnEditVDRA.setOnClickListener
 
             //handler of Start BUTTON
-            btnStartPrjCSOWAcRA.setOnClickListener(new View.OnClickListener() {
+            btnStartPrjSOAWAcRA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //caught position of a cursor
@@ -113,7 +113,7 @@ public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCS
             });//btnStartPrjCSOWAcRA.setOnClickListener
 
             //handler of Stop BUTTON
-            btnStopPrjCSOWAcRA.setOnClickListener(new View.OnClickListener() {
+            btnStopPrjSOAWAcRA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //caught position of a cursor
@@ -167,4 +167,4 @@ public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCS
 
     }//public class ViewHolder extends RecyclerView.ViewHolder
 
-}//public class PrjListCSOWAcRARecyclerAdapter
+}//public class PrjListSOAWAcRecyclerAdapter

@@ -32,23 +32,23 @@ public class ChangeStateOfWorkActivity extends AppCompatActivity {
     Cursor cursor;
 
     Calendar calendar = Calendar.getInstance(); // object for working with TIME and DATE
-    String showEventDate;                   // дата события для показа
-    String eventDateForDB;                  // дата события для БД
-    String eventStartTime;                  // Время начала события
+    String showEventDate;                   // date for show
+    String eventDateForDB;                  // date for DB
+    String eventStartTime;                  // Time of start event
     String time; //additional value
-    TextView tvCurTimeAndDateSWTOCKOWAc; //current Date and Time
+    TextView tvCurTimeAndDateCSOWAc; //current Date and Time
 
-    Spinner spKindOfWorkSWTOCKOWAc; //spinner for filter projects view by kind of works
+    Spinner spKindOfWorkCSOWAc; //spinner for filter projects view by kind of works
 
     String idAuthUser; //got id User number from authorization Activity
 
     DBUtilities dbUtilities;  //create local link for class DBUtilities
 
-    RecyclerView rvExistWorkSWTOCKOWAc; //link to recyclerView
+    RecyclerView rvExistWorkCSOWAc; //link to recyclerView
 
     PrjListCSOWAcRecyclerAdapter prjListCSOWAcRecyclerAdapter; // adaptor for Recyclerview
 
-    TextView tvWorksCountSWTOCKOWAc; //count of works for this current account
+    TextView tvWorksCountCSOWAc; //count of works for this current account
 
     String mainQuery = "SELECT prj.id, prj.prj_name, prj.prj_time_limit, prj.prj_waste_time, prj.company, prj.contact_person FROM prj ORDER BY prj.prj_name";
 
@@ -66,10 +66,10 @@ public class ChangeStateOfWorkActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        rvExistWorkSWTOCKOWAc = (RecyclerView) findViewById(R.id.rvExistWorkCSOWAc);
-        tvWorksCountSWTOCKOWAc = (TextView) findViewById(R.id.tvWorksCountCSOWAc);
-        spKindOfWorkSWTOCKOWAc = (Spinner) findViewById(R.id.spKindOfWorkCSOWAc);
-        tvCurTimeAndDateSWTOCKOWAc = (TextView) findViewById(R.id.tvCurTimeAndDateCSOWAc);
+        rvExistWorkCSOWAc = (RecyclerView) findViewById(R.id.rvExistWorkCSOWAc);
+        tvWorksCountCSOWAc = (TextView) findViewById(R.id.tvWorksCountCSOWAc);
+        spKindOfWorkCSOWAc = (Spinner) findViewById(R.id.spKindOfWorkCSOWAc);
+        tvCurTimeAndDateCSOWAc = (TextView) findViewById(R.id.tvCurTimeAndDateCSOWAc);
 
         setInitialDate();               //начальная установка даты
         setInitialTime();               //начальная установка время
@@ -86,13 +86,13 @@ public class ChangeStateOfWorkActivity extends AppCompatActivity {
         cursor = dbUtilities.getDb().rawQuery(mainQuery, null);
         //Log.e("myMSG",String.valueOf(cursor.getCount()));
         //count of works
-        tvWorksCountSWTOCKOWAc.setText(String.valueOf(cursor.getCount()));
+        tvWorksCountCSOWAc.setText(String.valueOf(cursor.getCount()));
 
         // create adaptor and handing over a link
         prjListCSOWAcRecyclerAdapter
                 = new PrjListCSOWAcRecyclerAdapter(context, idAuthUser);
 
-        rvExistWorkSWTOCKOWAc.setAdapter(prjListCSOWAcRecyclerAdapter);
+        rvExistWorkCSOWAc.setAdapter(prjListCSOWAcRecyclerAdapter);
     }//buildUserRecyclerView
 
     //arrow for back to previous menu
@@ -129,7 +129,7 @@ public class ChangeStateOfWorkActivity extends AppCompatActivity {
         // adapter assignment for the list
         spAdapterKindOfWorks.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spKindOfWorkSWTOCKOWAc.setAdapter(spAdapterKindOfWorks);
+        spKindOfWorkCSOWAc.setAdapter(spAdapterKindOfWorks);
     }//buildCitySpinner
 
     // setting handler change / timing
@@ -184,7 +184,7 @@ public class ChangeStateOfWorkActivity extends AppCompatActivity {
                 DateUtils.FORMAT_SHOW_TIME);
 
         //setting text to btnStartTimeCrEv
-        tvCurTimeAndDateSWTOCKOWAc.setText(time + "   " +eventStartTime);
+        tvCurTimeAndDateCSOWAc.setText(time + "   " +eventStartTime);
     } // setInitialDateTime
 
     // display the date picker dialog box - DatePickerDialog
