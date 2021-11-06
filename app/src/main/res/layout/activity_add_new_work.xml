@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
     android:orientation="vertical"
-    tools:context=".AddNewWork">
+    tools:context=".AddNewWorkActivity">
 
     <TextView
         android:id="@+id/tvHeadANWAc"
@@ -156,22 +156,27 @@
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:text="NEW"
+            android:onClick="onClick"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="15sp"/>
-
-        <Spinner
-            android:id="@+id/spKindOfWorkANWAc"
-            android:layout_weight="3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvWorksANWAc"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="LinearLayoutManager">
+
+    </android.support.v7.widget.RecyclerView>
 
     <Button
         android:id="@+id/btnCreateANWAc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create"
+        android:onClick="onClick"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="15sp"/>

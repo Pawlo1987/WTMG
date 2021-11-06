@@ -31,26 +31,26 @@ public class ChangeStateOfWorkActivity extends AppCompatActivity {
 
     Cursor cursor;
 
-    Calendar calendar = Calendar.getInstance(); // object for working with TIME and DATE
-    String showEventDate;                   // date for show
-    String eventDateForDB;                  // date for DB
-    String eventStartTime;                  // Time of start event
-    String time; //additional value
-    TextView tvCurTimeAndDateCSOWAc; //current Date and Time
+    private Calendar calendar = Calendar.getInstance(); // object for working with TIME and DATE
+    private String showEventDate;                   // date for show
+    private String eventDateForDB;                  // date for DB
+    private String eventStartTime;                  // Time of start event
+    private String time; //additional value
+    private TextView tvCurTimeAndDateCSOWAc; //current Date and Time
 
-    Spinner spKindOfWorkCSOWAc; //spinner for filter projects view by kind of works
+    private Spinner spKindOfWorkCSOWAc; //spinner for filter projects view by kind of works
 
-    String idAuthUser; //got id User number from authorization Activity
+    private String idAuthUser; //got id User number from authorization Activity
 
     DBUtilities dbUtilities;  //create local link for class DBUtilities
 
-    RecyclerView rvExistWorkCSOWAc; //link to recyclerView
+    private RecyclerView rvExistWorkCSOWAc; //link to recyclerView
 
-    PrjListCSOWAcRecyclerAdapter prjListCSOWAcRecyclerAdapter; // adaptor for Recyclerview
+    private PrjListCSOWAcRecyclerAdapter prjListCSOWAcRecyclerAdapter; // adaptor for Recyclerview
 
-    TextView tvWorksCountCSOWAc; //count of works for this current account
+    private TextView tvWorksCountCSOWAc; //count of works for this current account
 
-    String mainQuery = "SELECT prj.id, prj.prj_name, prj.prj_time_limit, prj.prj_waste_time, prj.company, prj.contact_person FROM prj ORDER BY prj.prj_name";
+    private String mainQuery = "SELECT prj.id, prj.prj_name, prj.prj_time_limit, prj.prj_waste_time, prj.company, prj.contact_person FROM prj ORDER BY prj.prj_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

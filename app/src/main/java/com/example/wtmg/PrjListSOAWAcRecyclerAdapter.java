@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+//Recycler Adaptor for list in Status of Active Works Activity
 public class PrjListSOAWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListSOAWAcRecyclerAdapter.ViewHolder>{
 
 

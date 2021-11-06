@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WTMG">
         <activity
-            android:name=".AddNewWork"
+            android:name=".AddNewWorkActivity"
             android:exported="true" />
         <activity
             android:name=".ReportBuilderActivity"

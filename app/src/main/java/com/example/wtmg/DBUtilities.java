@@ -40,6 +40,31 @@ public class DBUtilities {
         dbHelper.create_db();
     } // DBUtilities
 
+    //add new line to in table field
+    public void insertIntoField(String field){
+        ContentValues cv = new ContentValues();
+        cv.put("field_name", field);
+        //add data through the object ContentValues(cv), into table
+        insertInto(cv, "fields");
+    }//insertIntoField
+
+    //add new line in prj table
+    public void insertIntoPrj(String prj_name, int prj_time_limit,
+                              String company,  String contact_person, int field){
+        ContentValues cv = new ContentValues();
+        cv.put("contact_person", contact_person);
+        cv.put("prj_time_limit", prj_time_limit);
+        cv.put("prj_waste_time", 0);
+        cv.put("company", company);
+        cv.put("contact_person", contact_person);
+        cv.put("field", field);
+        //add data through the object ContentValues(cv), into table
+        insertInto(cv, "prj");
+    }//insertIntoPrj
+
+
+
+    ////////////////////////////////////////////////////////////////////////////
     //добавить строку в таблицу
     // соответственно параметры(cv - данные, table - таблица)
     public void insertInto(ContentValues cv, String table){

@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Activity with features: Creating a new work or detail view of existed works or delete existed works.
     private void addNewWork() {
-        Intent intent = new Intent(this, AddNewWork.class);
+        Intent intent = new Intent(this, AddNewWorkActivity.class);
         startActivity(intent);
 
     }//addNewWork

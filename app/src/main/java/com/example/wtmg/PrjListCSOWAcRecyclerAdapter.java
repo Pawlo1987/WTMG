@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+//Recycler Adaptor for list in Change State of Works Activity
 public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCSOWAcRecyclerAdapter.ViewHolder>{
 
     Context context;
