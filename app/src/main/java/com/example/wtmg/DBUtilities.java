@@ -52,12 +52,12 @@ public class DBUtilities {
     public void insertIntoPrj(String prj_name, int prj_time_limit,
                               String company,  String contact_person, int field){
         ContentValues cv = new ContentValues();
-        cv.put("contact_person", contact_person);
+        cv.put("prj_name", prj_name);
         cv.put("prj_time_limit", prj_time_limit);
         cv.put("prj_waste_time", 0);
         cv.put("company", company);
         cv.put("contact_person", contact_person);
-        cv.put("field", field);
+        cv.put("field_id", field);
         //add data through the object ContentValues(cv), into table
         insertInto(cv, "prj");
     }//insertIntoPrj

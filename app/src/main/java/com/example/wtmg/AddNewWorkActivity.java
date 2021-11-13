@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -16,18 +17,17 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO: Here must be work button for add new kind of work or delete kind of work
-// additional option or new work (spinner > option Engineering, layout, else) + count of ordering hours.
 public class AddNewWorkActivity extends AppCompatActivity {
 
     Context context;
     DBUtilities dbUtilities;  //create local link for class DBUtilities
     ActionBar actionBar; //arrowGoBack
 
+    public List<Integer> limitsOfTimeListRV; // limits of times List for RecyclerView
+
     private EditText etProjectNameANWAc; //string for filling with the project name
     private EditText etCompanyNameANWAc; //string for filling with the company name
     private EditText etContactPersonANWAc; //string for filling with the contact person name
-    private EditText etLimitOfTimeANWAc; //string for filling with limit of time
 
     private RecyclerView rvWorksANWAc; //link to recyclerView
     Cursor cursor;
@@ -55,8 +55,9 @@ public class AddNewWorkActivity extends AppCompatActivity {
         etProjectNameANWAc = (EditText) findViewById(R.id.etProjectNameANWAc);
         etCompanyNameANWAc = (EditText) findViewById(R.id.etCompanyNameANWAc);
         etContactPersonANWAc = (EditText) findViewById(R.id.etContactPersonANWAc);
-        etLimitOfTimeANWAc = (EditText) findViewById(R.id.etLimitOfTimeANWAc);
+        limitsOfTimeListRV = new ArrayList<>(20);
 
+        buildRecyclerView(); //function for building recyclerAdaptor
     }//OnCreate
 
     //function for building recyclerAdaptor
@@ -66,7 +67,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
         //Log.e("myMSG",String.valueOf(cursor.getCount()));
         // create adaptor and handing over a link
         fieldListANWAcRecyclerAdapter
-                = new FieldListANWAcRecyclerAdapter(context);
+                = new FieldListANWAcRecyclerAdapter(context, limitsOfTimeListRV);
 
         rvWorksANWAc.setAdapter(fieldListANWAcRecyclerAdapter);
     }//buildUserRecyclerView
@@ -96,7 +97,6 @@ public class AddNewWorkActivity extends AppCompatActivity {
             case R.id.btnCreateANWAc:
                 addNewWorkToDB();
                 break;
-
         }//switch
     }//onClick
 
@@ -136,21 +136,14 @@ public class AddNewWorkActivity extends AppCompatActivity {
     private void addNewWorkToDB() {
         //flag for checking empty strings
         boolean flEmptyString = false; //default state FALSE, it means NO empty string
-        //id из таблицы russian, transcriprion, gender, meaning, quntity
-        //для записи в другие таблицы
-        List<Integer> listRussianId = new ArrayList<>();
-        int transcId = 0;
-        int genderId = 0;
-        int semanticId = 0;
-        int meaningId = 0;
-        int quantityId = 0;
-        int hebrewId = 0;
 
         String projectName = etProjectNameANWAc.getText().toString().trim();
         String companyName = etCompanyNameANWAc.getText().toString().trim();
         String contactPerson = etContactPersonANWAc.getText().toString().trim();
-        Integer limitOfTime = Integer.valueOf(etLimitOfTimeANWAc.getText().toString().trim());
+        Integer limitOfTime = 80;//??????????????????????????????????????????
         Integer field = 1;///////////////////////////////?????????????????????
+        //TODO: Limits of time???????
+        //Todo: Fields ???????
 
         //checking for empty strings
         //if we find one empty space
@@ -178,6 +171,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
 
             ///////////////////////working with table prj////////////
             //write new line to table prj
+            Log.e("myMSG",String.valueOf(limitsOfTimeListRV.contains(80)));
             dbUtilities.insertIntoPrj( projectName, limitOfTime, companyName, contactPerson, field);
             Toast.makeText(context, "New work added!", Toast.LENGTH_SHORT).show();
             finish();
