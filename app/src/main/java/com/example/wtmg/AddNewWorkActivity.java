@@ -17,7 +17,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNewWorkActivity extends AppCompatActivity {
+//Activity for add A new work
+public class AddNewWorkActivity extends AppCompatActivity implements FieldListANWAcRecyclerAdapter.BackDataFormRAtoActInterface {
 
     Context context;
     DBUtilities dbUtilities;  //create local link for class DBUtilities
@@ -55,7 +56,7 @@ public class AddNewWorkActivity extends AppCompatActivity {
         etProjectNameANWAc = (EditText) findViewById(R.id.etProjectNameANWAc);
         etCompanyNameANWAc = (EditText) findViewById(R.id.etCompanyNameANWAc);
         etContactPersonANWAc = (EditText) findViewById(R.id.etContactPersonANWAc);
-        limitsOfTimeListRV = new ArrayList<>(20);
+        limitsOfTimeListRV = new ArrayList<>();
 
         buildRecyclerView(); //function for building recyclerAdaptor
     }//OnCreate
@@ -64,10 +65,10 @@ public class AddNewWorkActivity extends AppCompatActivity {
     private void buildRecyclerView() {
         // Get data from database to Cursor
         cursor = dbUtilities.getDb().rawQuery(mainQuery, null);
-        //Log.e("myMSG",String.valueOf(cursor.getCount()));
         // create adaptor and handing over a link
+        //constructor for RecyclerAdaptor
         fieldListANWAcRecyclerAdapter
-                = new FieldListANWAcRecyclerAdapter(context, limitsOfTimeListRV);
+                = new FieldListANWAcRecyclerAdapter(context, this);
 
         rvWorksANWAc.setAdapter(fieldListANWAcRecyclerAdapter);
     }//buildUserRecyclerView
@@ -91,19 +92,21 @@ public class AddNewWorkActivity extends AppCompatActivity {
 
             case R.id.btnNewKindOfWorkANWAc:
                 // call alertDialog for creating new field
-                alertDialogEditText();
+                alertDialogNewKindOfWork();
                 break;
 
             case R.id.btnCreateANWAc:
-                addNewWorkToDB();
+
+                Log.e("myMSG",String.valueOf(limitsOfTimeListRV.size()));
+                //addNewWorkToDB();
                 break;
         }//switch
     }//onClick
 
-    //AlertDialog for creating new kind of works
-    private void alertDialogEditText() {
+    //AlertDialog for creating a new kind of works
+    private void alertDialogNewKindOfWork() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Add kind of work!");
+        alert.setTitle("Add a new kind of work?");
 //        alert.setMessage("Create new data!");
         alert.setIcon(R.drawable.icon_information);
         final EditText input = new EditText(this);
@@ -112,16 +115,18 @@ public class AddNewWorkActivity extends AppCompatActivity {
         alert.setView(input);
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                String field = input.getText().toString().trim();
-                //checking for matching
-                String query = "SELECT fields.field_name FROM fields " +
-                        "WHERE fields.field_name = \"" + field + "\"";
-                Cursor cursor = dbUtilities.getDb().rawQuery(query, null);
-                if(!field.equals("")&&(cursor.getCount()==0)) {
-                    //add new value to the table
-                    dbUtilities.insertIntoField(field);
-                    // Do something with value!
-                }//if(!word.equals(""))
+                    String field = input.getText().toString().trim();
+                    //checking for matching
+                    String query = "SELECT fields.field_name FROM fields " +
+                            "WHERE fields.field_name = \"" + field + "\"";
+                    Cursor cursor = dbUtilities.getDb().rawQuery(query, null);
+                    if (!field.equals("") && (cursor.getCount() == 0)) {
+                        //add new value to the table
+                        dbUtilities.insertIntoField(field);
+                        buildRecyclerView();
+                        Toast.makeText(context, "A new kind of work added!", Toast.LENGTH_SHORT).show();
+                        // Do something with value!
+                }//if(buttonFunction.equals("Add a new kind of work?"))
             }//onClick
         });
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -132,8 +137,8 @@ public class AddNewWorkActivity extends AppCompatActivity {
         alert.show();
     }//alertDialogEditText
 
-    //add new work to DB
-    private void addNewWorkToDB() {
+    //add a new work to DB
+    public void addNewWorkToDB() {
         //flag for checking empty strings
         boolean flEmptyString = false; //default state FALSE, it means NO empty string
 
@@ -142,6 +147,9 @@ public class AddNewWorkActivity extends AppCompatActivity {
         String contactPerson = etContactPersonANWAc.getText().toString().trim();
         Integer limitOfTime = 80;//??????????????????????????????????????????
         Integer field = 1;///////////////////////////////?????????????????????
+
+
+
         //TODO: Limits of time???????
         //Todo: Fields ???????
 
@@ -164,18 +172,49 @@ public class AddNewWorkActivity extends AppCompatActivity {
             }//for
         }//if-else
 
-        //if empty lines or matching was found
+        //if empty lines or matching was not found
         if(!flEmptyString) {
             String query;
             Cursor cursor;
 
             ///////////////////////working with table prj////////////
             //write new line to table prj
-            Log.e("myMSG",String.valueOf(limitsOfTimeListRV.contains(80)));
-            dbUtilities.insertIntoPrj( projectName, limitOfTime, companyName, contactPerson, field);
-            Toast.makeText(context, "New work added!", Toast.LENGTH_SHORT).show();
+            //Log.e("myMSG",String.valueOf(limitsOfTimeListRV.contains(80)));
+            alertDialogNewWork(projectName, limitOfTime, companyName, contactPerson, field);
             finish();
         }//if(!flEmptyString)
     }//addNewWorkToDB
 
+    //AlertDialog for creating a new work
+    private void alertDialogNewWork(String projectName, Integer limitOfTime, String companyName, String contactPerson, Integer field) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Add a new work?");
+//        alert.setMessage("Create new data!");
+        alert.setIcon(R.drawable.icon_information);
+        final EditText input = new EditText(this);
+//        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setText("");
+        alert.setView(input);
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //save new line in Database
+                dbUtilities.insertIntoPrj( projectName, limitOfTime, companyName, contactPerson, field);
+                Toast.makeText(context, "New work added!", Toast.LENGTH_SHORT).show();
+
+            }//onClick
+        });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+        alert.show();
+    }//alertDialogEditText
+
+
+    //procedure from interface from RecyclerAdaptor "FieldListANWAcRecyclerAdapter"
+    @Override
+    public void passLimitsOfTimeListRA(List<Integer> limitsOfTimeListRV) {
+        this.limitsOfTimeListRV = limitsOfTimeListRV;
+    }
 }//AddNewWork

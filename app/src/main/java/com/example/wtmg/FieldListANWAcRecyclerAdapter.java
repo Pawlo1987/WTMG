@@ -1,11 +1,8 @@
 package com.example.wtmg;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,50 +12,54 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-//Recycler Adaptor for list in Add New Work Activity
+//Recycler Adaptor for list in Add A New Work Activity
 public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldListANWAcRecyclerAdapter.ViewHolder>{
 
-
     Context context;
+
+    //Link on interface for pass data from Recycler Adaptor
+    BackDataFormRAtoActInterface backDataFormRAtoActInterface;
 
     //fields of class PrjListRecyclerAdapter
     private LayoutInflater inflater;
     private Cursor cursor;
     private String idField; // value for transfer to next level
 
-    public List<Integer> limitsOfTimeListRV; // limits of times List for RecyclerView and for ordering data
+    public Integer[] limitsOfTimeArrayRV; // limits of times array for RecyclerView and for ordering data
 
     DBUtilities dbUtilities;//link to DBUtilities class
 
 
     //constructor
-    public FieldListANWAcRecyclerAdapter(Context context, List<Integer> limitsOfTimeListRV) {
+    public FieldListANWAcRecyclerAdapter(Context context, BackDataFormRAtoActInterface backDataFormRAtoActInterface) {
         this.inflater = LayoutInflater.from(context);
         //handler tap on RecyclerAdapter
         this.context = context;
-        this.limitsOfTimeListRV = limitsOfTimeListRV;
         dbUtilities = new DBUtilities(context);
         dbUtilities.open();
-
         String mainQuery = "SELECT fields.id, fields.field_name FROM fields";
         cursor = dbUtilities.getDb().rawQuery(mainQuery, null);
+
+        this.backDataFormRAtoActInterface = backDataFormRAtoActInterface;
+
+        //size of array limitsOfTimeArrayRV we will declare according to cursor size
+        limitsOfTimeArrayRV = new Integer[cursor.getCount()];
 
     } // FieldListANWAcRecyclerAdapter
 
     //create a new markup (View) by specifying the markup
     @Override
-    public FieldListANWAcRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+    public FieldListANWAcRecyclerAdapter.ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.field_list_anw_recycler_adapter, parent, false);
-        return new FieldListANWAcRecyclerAdapter.ViewHolder(view);
+        BackDataFormRAtoActInterface backDataFormRAtoActInterface = this.backDataFormRAtoActInterface;
+        return new FieldListANWAcRecyclerAdapter.ViewHolder(view, backDataFormRAtoActInterface);
     }
 
     //bind markup elements to object variables (in this case, to the cursor)
@@ -71,7 +72,11 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
         idField = cursor.getString(0); //caught current idField
         holder.tvFieldNameANWAcRA.setText(cursor.getString(1));    //Field Name
         holder.btnLimitOfTimeANWAcRA.setEnabled(false);
-        holder.btnLimitOfTimeANWAcRA.setText("1");//limitsOfTimeListRV.get(position).toString());
+        holder.btnLimitOfTimeANWAcRA.setText("0");//limitsOfTimeListRV.get(position).toString());
+        //save change array limitsOfTimeListRV every time when we create Recycler Adaptor
+        limitsOfTimeArrayRV[position] = 0;
+        //pass data Limits of Time every time after add new value to layout of Recycler Adaptor
+        backDataFormRAtoActInterface.passLimitsOfTimeListRA(Arrays.asList(limitsOfTimeArrayRV.clone()));
     } // onBindViewHolder
 
     //get the number of elements of an object (cursor)
@@ -86,8 +91,9 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
         final LinearLayout llMainANWAcRA;
         final CheckBox cbFieldANWAcRA;
         final Button btnLimitOfTimeANWAcRA;
+        BackDataFormRAtoActInterface backDataFormRAtoActInterface;
 
-        ViewHolder(View view) {
+        ViewHolder(View view, BackDataFormRAtoActInterface backDataFormRAtoActInterface) {
             super(view);
 
             cbFieldANWAcRA = (CheckBox) view.findViewById(R.id.cbFieldANWAcRA);
@@ -95,20 +101,27 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
             tvFieldNameANWAcRA = (TextView) view.findViewById(R.id.tvFieldNameANWAcRA);
             cvPrjListANWAcRA = (CardView) view.findViewById(R.id.cvPrjListANWAcRA);
             btnLimitOfTimeANWAcRA = (Button) view.findViewById(R.id.btnLimitOfTimeANWAcRA);
+            this.backDataFormRAtoActInterface = backDataFormRAtoActInterface;
 
             //handler of checkbox
             cbFieldANWAcRA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //caught position of a cursor
-                    cursor.moveToPosition(getAdapterPosition());
+                    Integer recAdPosition = getAdapterPosition();
+                    cursor.moveToPosition(recAdPosition);
                     //Log.e("myMSG",String.valueOf(cbFieldANWAcRA.isChecked()));
                     if(cbFieldANWAcRA.isChecked()) {
                         //EditText activated
                         btnLimitOfTimeANWAcRA.setEnabled(true);
                     } else {
-                        //EditText activated
+                        //EditText deactivated and button text reset to zero value
                         btnLimitOfTimeANWAcRA.setEnabled(false);
+                        btnLimitOfTimeANWAcRA.setText("0");//limitsOfTimeListRV.get(position).toString());
+                        //change array limitsOfTimeListRV every time when we change Recycler Adaptor
+                        limitsOfTimeArrayRV[recAdPosition] = 0;
+                        //pass data Limits of Time every time after changing value to layout of Recycler Adaptor
+                        ViewHolder.this.backDataFormRAtoActInterface.passLimitsOfTimeListRA(Arrays.asList(limitsOfTimeArrayRV.clone()));
                     }//if(cbFieldANWAcRA.isSelected())
                 }//onClick
             });//cbFieldANWAcRA.setOnClickListener
@@ -120,13 +133,13 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
                     //caught position of a cursor
                     cursor.moveToPosition(getAdapterPosition());
                     //setting dialog
-                    alertDialogBtnLimitOfTimeANWAcRA(view.getContext(), "Limit of time", String.valueOf(getAdapterPosition()));
+                    alertDialogBtnLimitOfTimeANWAcRA(view.getContext(), "Limit of time", getAdapterPosition());
                 }//onClick
             });//cbFieldANWAcRA.setOnClickListener
         } //ViewHolder(View view)
 
         //AlertDialog with a couple of button for btnLimitOfTimeANWAcRA
-        private void alertDialogBtnLimitOfTimeANWAcRA(final Context context, final String message, final String idPrj) {
+        private void alertDialogBtnLimitOfTimeANWAcRA(final Context context, final String message, final Integer recAdPosition) {
             AlertDialog.Builder ad;
             String buttonString = "Set";
 
@@ -142,9 +155,11 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
                 public void onClick(DialogInterface dialog, int arg1) {
                     //set data on text and transmit to collection
                     Integer limitsOfTime = numberPicker.getValue(); // temper variable for saving limitsOfTime
+                    //change array limitsOfTimeListRV every time when we change Recycler Adaptor
+                    limitsOfTimeArrayRV[recAdPosition] = limitsOfTime;
+                    //pass data Limits of Time every time after changing value to layout of Recycler Adaptor
+                    backDataFormRAtoActInterface.passLimitsOfTimeListRA(Arrays.asList(limitsOfTimeArrayRV.clone()));
                     btnLimitOfTimeANWAcRA.setText(String.valueOf(limitsOfTime));
-                    limitsOfTimeListRV.add(Integer.valueOf(idField), limitsOfTime);
-
                 }//onClick
             });
             ad.setCancelable(true);
@@ -161,5 +176,10 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
 
         }
     }//public class ViewHolder extends RecyclerView.ViewHolder
+
+   //interface for pass data from the Recycler Adaptor to the activity which use created A adaptor.
+   interface BackDataFormRAtoActInterface {
+        void passLimitsOfTimeListRA( List<Integer> limitsOfTimeListRV);
+    }//public interface BackDataFormRAtoActInterface
 
 }//public class FieldListANWAcRecyclerAdapter
