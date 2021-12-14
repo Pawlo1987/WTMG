@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -96,9 +95,10 @@ public class AddNewWorkActivity extends AppCompatActivity implements FieldListAN
                 break;
 
             case R.id.btnCreateANWAc:
+                //massive "limitsOfTimeListRV" with time limits of each lines of kinds of works from RecyclerAdaptor
+                //Log.e("myMSG",String.valueOf(limitsOfTimeListRV.size()));
 
-                Log.e("myMSG",String.valueOf(limitsOfTimeListRV.size()));
-                //addNewWorkToDB();
+                addNewWorkToDB();
                 break;
         }//switch
     }//onClick
@@ -145,29 +145,32 @@ public class AddNewWorkActivity extends AppCompatActivity implements FieldListAN
         String projectName = etProjectNameANWAc.getText().toString().trim();
         String companyName = etCompanyNameANWAc.getText().toString().trim();
         String contactPerson = etContactPersonANWAc.getText().toString().trim();
-        Integer limitOfTime = 80;//??????????????????????????????????????????
-        Integer field = 1;///////////////////////////////?????????????????????
-
-
-
-        //TODO: Limits of time???????
-        //Todo: Fields ???????
+        Integer limitOfTime;  //supporting variable for limits of time
+        Integer field;  //supporting variable for number of fields
+        int n = limitsOfTimeListRV.size();
+        //find max value
+        Integer max = 0;
+        for(int i=0; i < n; i++ ) {
+            if(limitsOfTimeListRV.get(i) > max){
+                max = limitsOfTimeListRV.get(i);
+            }//if(limitsOfTimeListRV.get(i) > max)
+        }//for(int i=0; i < n; i++ )
 
         //checking for empty strings
         //if we find one empty space
         //it's satisfies our conditions
-        if ((projectName.equals("")) || (companyName.equals("")) || (contactPerson.equals("")) || (limitOfTime.equals(""))) {
+        if ((projectName.equals("")) || (companyName.equals("")) || (contactPerson.equals("")) || (max == 0)) {
             //found empty lines
-            Toast.makeText(context, "Empty lines!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Empty lines or didn't choose any time limits", Toast.LENGTH_SHORT).show();
             flEmptyString = true;
         }else{
-            //checking for matching project name
+            //checking for matching of the project name
             //get Cursor from DB
             String query = "SELECT prj.prj_name FROM prj WHERE prj.prj_name = \"" + projectName + "\"";
             Cursor cursor = dbUtilities.getDb().rawQuery(query, null);
             //if matching was found
             if(cursor.getCount() > 0){
-                Toast.makeText(context, "Found a match! Correct hebrew word or transcription!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Found a match! Please correct name of project!", Toast.LENGTH_SHORT).show();
                 flEmptyString = true; //set the status in TRUE state if we found empty string
             }//for
         }//if-else
@@ -179,14 +182,12 @@ public class AddNewWorkActivity extends AppCompatActivity implements FieldListAN
 
             ///////////////////////working with table prj////////////
             //write new line to table prj
-            //Log.e("myMSG",String.valueOf(limitsOfTimeListRV.contains(80)));
-            alertDialogNewWork(projectName, limitOfTime, companyName, contactPerson, field);
-            finish();
+            alertDialogNewWork(projectName, companyName, contactPerson);
         }//if(!flEmptyString)
     }//addNewWorkToDB
 
     //AlertDialog for creating a new work
-    private void alertDialogNewWork(String projectName, Integer limitOfTime, String companyName, String contactPerson, Integer field) {
+    private void alertDialogNewWork(String projectName, String companyName, String contactPerson) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Add a new work?");
 //        alert.setMessage("Create new data!");
@@ -197,20 +198,25 @@ public class AddNewWorkActivity extends AppCompatActivity implements FieldListAN
         alert.setView(input);
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                //save new line in Database
-                dbUtilities.insertIntoPrj( projectName, limitOfTime, companyName, contactPerson, field);
+                //save new lines in Database
+                int n = limitsOfTimeListRV.size();
+                for(int i = 0; i < n; i++) {
+                    if(limitsOfTimeListRV.get(i) > 0 ){
+                        dbUtilities.insertIntoPrj( projectName, limitsOfTimeListRV.get(i), companyName, contactPerson, i);
+                    }// if(limitsOfTimeListRV.get(i) != 0 )
+                }//for(int i = 0; i <= sizeOfLimOfTimeMas; i++ )
                 Toast.makeText(context, "New work added!", Toast.LENGTH_SHORT).show();
-
+                finish();
             }//onClick
         });
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 // Canceled.
+                finish();
             }
         });
         alert.show();
     }//alertDialogEditText
-
 
     //procedure from interface from RecyclerAdaptor "FieldListANWAcRecyclerAdapter"
     @Override

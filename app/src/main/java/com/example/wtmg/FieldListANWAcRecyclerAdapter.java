@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.List;
 
+//TODO: recycler adaptor must save all condition in time of work
 //Recycler Adaptor for list in Add A New Work Activity
 public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldListANWAcRecyclerAdapter.ViewHolder>{
 
@@ -178,6 +179,7 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
     }//public class ViewHolder extends RecyclerView.ViewHolder
 
    //interface for pass data from the Recycler Adaptor to the activity which use created A adaptor.
+    //https://www.youtube.com/watch?v=_rPY0s7yJ1g
    interface BackDataFormRAtoActInterface {
         void passLimitsOfTimeListRA( List<Integer> limitsOfTimeListRV);
     }//public interface BackDataFormRAtoActInterface
