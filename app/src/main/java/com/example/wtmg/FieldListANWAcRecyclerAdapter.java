@@ -16,10 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//TODO:  recycler adaptor must save all condition in time of work
+//TODO:  why first position of recycler adaptor is duplicated the last position of recyclerview
 //Recycler Adaptor for list in Add A New Work Activity
 public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldListANWAcRecyclerAdapter.ViewHolder>{
 
@@ -30,13 +31,13 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
 
     //fields of class PrjListRecyclerAdapter
     private LayoutInflater inflater;
+    private List<Integer> cbConditionsList;
     private Cursor cursor;
     private String idField; // value for transfer to next level
 
     public Integer[] limitsOfTimeArrayRV; // limits of times array for RecyclerView and for ordering data
 
     DBUtilities dbUtilities;//link to DBUtilities class
-
 
     //constructor
     public FieldListANWAcRecyclerAdapter(Context context, BackDataFormRAtoActInterface backDataFormRAtoActInterface) {
@@ -53,6 +54,13 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
         //size of array limitsOfTimeArrayRV we will declare according to cursor size
         limitsOfTimeArrayRV = new Integer[cursor.getCount()];
 
+        //list for record conditions of CheckBoxes
+        cbConditionsList = new ArrayList<>();
+        int n = cursor.getCount();
+        //fill cbConditionsList in start of Viewing
+        for(int i=0; i < n; i++ ) { cbConditionsList.add(0);
+        Log.e("myMSG","i"+i + "  " + cbConditionsList.get(i));
+        }//for(int i=0; i < n; i++ )
     } // FieldListANWAcRecyclerAdapter
 
     //create a new markup (View) by specifying the markup
@@ -72,8 +80,15 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
         //get data
         idField = cursor.getString(0); //caught current idField
         holder.tvFieldNameANWAcRA.setText(cursor.getString(1));    //Field Name
-        holder.btnLimitOfTimeANWAcRA.setEnabled(false);
-        holder.btnLimitOfTimeANWAcRA.setText("0");//limitsOfTimeListRV.get(position).toString());
+        if(cbConditionsList.get(position) == 1) {
+            //EditText activated
+            holder.btnLimitOfTimeANWAcRA.setEnabled(true);
+            Log.e("myMSG",position + "  " + holder.cbFieldANWAcRA.isChecked() + "onBindViewHolder");
+        } else {
+            //EditText deactivated and button text reset to zero value
+            holder.btnLimitOfTimeANWAcRA.setEnabled(false);
+            holder.btnLimitOfTimeANWAcRA.setText("0");//limitsOfTimeListRV.get(position).toString());
+        }//if(cbFieldANWAcRA.isSelected())
         //save change array limitsOfTimeListRV every time when we create Recycler Adaptor
         limitsOfTimeArrayRV[position] = 0;
         //pass data Limits of Time every time after add new value to layout of Recycler Adaptor
@@ -82,7 +97,7 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
 
     //get the number of elements of an object (cursor)
     @Override
-    public int getItemCount() { return cursor.getCount(); }
+    public int getItemCount() { return cursor.getCount(); }//public int getItemCount()
 
     // Create a ViewHolder class with which we get a link to each element
     // a separate list item and connect the listener for the menu click event
@@ -111,14 +126,15 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
                     //caught position of a cursor
                     Integer recAdPosition = getAdapterPosition();
                     cursor.moveToPosition(recAdPosition);
-                    //Log.e("myMSG",String.valueOf(cbFieldANWAcRA.isChecked()));
                     if(cbFieldANWAcRA.isChecked()) {
                         //EditText activated
                         btnLimitOfTimeANWAcRA.setEnabled(true);
+                        cbConditionsList.set(recAdPosition,1);
                     } else {
                         //EditText deactivated and button text reset to zero value
                         btnLimitOfTimeANWAcRA.setEnabled(false);
                         btnLimitOfTimeANWAcRA.setText("0");//limitsOfTimeListRV.get(position).toString());
+                        cbConditionsList.set(recAdPosition,0);
                         //change array limitsOfTimeListRV every time when we change Recycler Adaptor
                         limitsOfTimeArrayRV[recAdPosition] = 0;
                         //pass data Limits of Time every time after changing value to layout of Recycler Adaptor

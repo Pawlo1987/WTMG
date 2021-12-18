@@ -190,12 +190,8 @@ public class AddNewWorkActivity extends AppCompatActivity implements FieldListAN
     private void alertDialogNewWork(String projectName, String companyName, String contactPerson) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Add a new work?");
-//        alert.setMessage("Create new data!");
+        alert.setMessage("Confirm please.");
         alert.setIcon(R.drawable.icon_information);
-        final EditText input = new EditText(this);
-//        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        input.setText("");
-        alert.setView(input);
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //save new lines in Database

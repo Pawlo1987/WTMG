@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-//TODO: HERE Must be line with current system time, next line with spinner with relevant works
-// and button start or change(function for change text in side of button)
+//TODO: add lines with kind of works and active work line(times in green highlight color)
 public class ChangeStateOfWorkActivity extends AppCompatActivity {
     ActionBar actionBar; //arrowGoBack
 
