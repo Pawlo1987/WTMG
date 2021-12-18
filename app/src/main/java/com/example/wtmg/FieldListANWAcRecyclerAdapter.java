@@ -19,7 +19,7 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.List;
 
-//TODO:  recycler adaptor must save all condition in time of work!
+//TODO:  recycler adaptor must save all condition in time of work
 //Recycler Adaptor for list in Add A New Work Activity
 public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldListANWAcRecyclerAdapter.ViewHolder>{
 
