@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//TODO:  why first position of recycler adaptor is duplicated the last position of recyclerview
+//TODO:
 //Recycler Adaptor for list in Add A New Work Activity
 public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldListANWAcRecyclerAdapter.ViewHolder>{
 
@@ -57,9 +57,11 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
         //list for record conditions of CheckBoxes
         cbConditionsList = new ArrayList<>();
         int n = cursor.getCount();
-        //fill cbConditionsList in start of Viewing
-        for(int i=0; i < n; i++ ) { cbConditionsList.add(0);
-        Log.e("myMSG","i"+i + "  " + cbConditionsList.get(i));
+        //fill cbConditionsList in start of Viewing (start condition)
+        for(int i=0; i < n; i++ ) {
+            cbConditionsList.add(i, 0);
+            limitsOfTimeArrayRV[i] = 0;
+        //Log.e("myMSG","i"+i + "  " + cbConditionsList.get(i));
         }//for(int i=0; i < n; i++ )
     } // FieldListANWAcRecyclerAdapter
 
@@ -81,16 +83,19 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
         idField = cursor.getString(0); //caught current idField
         holder.tvFieldNameANWAcRA.setText(cursor.getString(1));    //Field Name
         if(cbConditionsList.get(position) == 1) {
+            //set forcibly condition of CheckBOX
+            holder.cbFieldANWAcRA.setChecked(true);
             //EditText activated
             holder.btnLimitOfTimeANWAcRA.setEnabled(true);
+            holder.btnLimitOfTimeANWAcRA.setText( limitsOfTimeArrayRV[position].toString());//limitsOfTimeListRV.get(position).toString());
             Log.e("myMSG",position + "  " + holder.cbFieldANWAcRA.isChecked() + "onBindViewHolder");
         } else {
+            //set forcibly condition of CheckBOX
+            holder.cbFieldANWAcRA.setChecked(false);
             //EditText deactivated and button text reset to zero value
             holder.btnLimitOfTimeANWAcRA.setEnabled(false);
             holder.btnLimitOfTimeANWAcRA.setText("0");//limitsOfTimeListRV.get(position).toString());
         }//if(cbFieldANWAcRA.isSelected())
-        //save change array limitsOfTimeListRV every time when we create Recycler Adaptor
-        limitsOfTimeArrayRV[position] = 0;
         //pass data Limits of Time every time after add new value to layout of Recycler Adaptor
         backDataFormRAtoActInterface.passLimitsOfTimeListRA(Arrays.asList(limitsOfTimeArrayRV.clone()));
     } // onBindViewHolder
@@ -125,11 +130,12 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
                 public void onClick(View v) {
                     //caught position of a cursor
                     Integer recAdPosition = getAdapterPosition();
-                    cursor.moveToPosition(recAdPosition);
+                    //cursor.moveToPosition(recAdPosition);
                     if(cbFieldANWAcRA.isChecked()) {
                         //EditText activated
                         btnLimitOfTimeANWAcRA.setEnabled(true);
                         cbConditionsList.set(recAdPosition,1);
+                        btnLimitOfTimeANWAcRA.setText( limitsOfTimeArrayRV[recAdPosition].toString());//limitsOfTimeListRV.get(position).toString());
                     } else {
                         //EditText deactivated and button text reset to zero value
                         btnLimitOfTimeANWAcRA.setEnabled(false);
@@ -148,7 +154,7 @@ public class FieldListANWAcRecyclerAdapter extends RecyclerView.Adapter<FieldLis
                 @Override
                 public void onClick(View v) {
                     //caught position of a cursor
-                    cursor.moveToPosition(getAdapterPosition());
+                    //cursor.moveToPosition(getAdapterPosition());
                     //setting dialog
                     alertDialogBtnLimitOfTimeANWAcRA(view.getContext(), "Limit of time", getAdapterPosition());
                 }//onClick

@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Activity for add A new work
+
+//TODO: check record of field. Perhaps in this stage placed issue.
 public class AddNewWorkActivity extends AppCompatActivity implements FieldListANWAcRecyclerAdapter.BackDataFormRAtoActInterface {
 
     Context context;
@@ -58,6 +60,7 @@ public class AddNewWorkActivity extends AppCompatActivity implements FieldListAN
         limitsOfTimeListRV = new ArrayList<>();
 
         buildRecyclerView(); //function for building recyclerAdaptor
+
     }//OnCreate
 
     //function for building recyclerAdaptor
@@ -198,7 +201,7 @@ public class AddNewWorkActivity extends AppCompatActivity implements FieldListAN
                 int n = limitsOfTimeListRV.size();
                 for(int i = 0; i < n; i++) {
                     if(limitsOfTimeListRV.get(i) > 0 ){
-                        dbUtilities.insertIntoPrj( projectName, limitsOfTimeListRV.get(i), companyName, contactPerson, i);
+                        dbUtilities.insertIntoPrj( projectName, limitsOfTimeListRV.get(i), companyName, contactPerson, i+1);
                     }// if(limitsOfTimeListRV.get(i) != 0 )
                 }//for(int i = 0; i <= sizeOfLimOfTimeMas; i++ )
                 Toast.makeText(context, "New work added!", Toast.LENGTH_SHORT).show();

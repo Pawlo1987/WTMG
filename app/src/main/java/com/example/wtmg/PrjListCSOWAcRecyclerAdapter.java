@@ -39,7 +39,8 @@ public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCS
         dbUtilities.open();
 
         String mainQuery = "SELECT prj.id, prj.prj_name, prj.prj_time_limit, prj.prj_waste_time, " +
-                "prj.company, prj.contact_person FROM prj ORDER BY prj.prj_name ";
+                "prj.company, prj.contact_person, fields.field_name FROM prj " +
+                "INNER JOIN fields ON fields.id = prj.field_id ORDER BY prj.prj_name";
         cursor = dbUtilities.getDb().rawQuery(mainQuery, null);
 
     } // PrjListRecyclerAdapter
@@ -62,6 +63,7 @@ public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCS
         idPrj = cursor.getString(0); //caught current prjId
         holder.tvPrjNameCSOWAcRA.setText(cursor.getString(1));    //Project Name
         holder.tvCompNameCSOWAcRA.setText(cursor.getString(4));   //Company name
+        holder.tvKindOfWorkCSOWAcRA.setText(cursor.getString(6));   //kind of work
         holder.tvPrjTimeLimitCSOWAcRA.setText(cursor.getString(2));  //timeLimit
         holder.tvPrjWasteTimeCSOWAcRA.setText(cursor.getString(3));    //wasteTime
     } // onBindViewHolder
@@ -73,7 +75,7 @@ public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCS
     // Create a ViewHolder class with which we get a link to each element
     // a separate list item and connect the listener for the menu click event
     public class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView tvPrjNameCSOWAcRA, tvCompNameCSOWAcRA, tvPrjTimeLimitCSOWAcRA, tvPrjWasteTimeCSOWAcRA;
+        final TextView tvPrjNameCSOWAcRA, tvCompNameCSOWAcRA, tvPrjTimeLimitCSOWAcRA, tvPrjWasteTimeCSOWAcRA, tvKindOfWorkCSOWAcRA;
         final CardView cvPrjListCSOWAcRA;
         final LinearLayout llMainCSOWAcRA;
         final Button btnEditPrjCSOWAcRA, btnStartPrjCSOWAcRA, btnStopPrjCSOWAcRA;
@@ -85,6 +87,7 @@ public class PrjListCSOWAcRecyclerAdapter extends RecyclerView.Adapter<PrjListCS
             tvPrjNameCSOWAcRA = (TextView) view.findViewById(R.id.tvPrjNameCSOWAcRA);
             tvCompNameCSOWAcRA = (TextView) view.findViewById(R.id.tvCompNameCSOWAcRA);
             tvPrjTimeLimitCSOWAcRA = (TextView) view.findViewById(R.id.tvPrjTimeLimitCSOWAcRA);
+            tvKindOfWorkCSOWAcRA = (TextView) view.findViewById(R.id.tvKindOfWorkCSOWAcRA);
             tvPrjWasteTimeCSOWAcRA = (TextView) view.findViewById(R.id.tvPrjWasteTimeCSOWAcRA);
             cvPrjListCSOWAcRA = (CardView) view.findViewById(R.id.cvPrjListCSOWAcRA);
             btnEditPrjCSOWAcRA = (Button) view.findViewById(R.id.btnEditPrjCSOWAcRA);
